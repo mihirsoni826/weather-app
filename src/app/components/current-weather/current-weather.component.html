@@ -1,0 +1,66 @@
+<section class="flex flex-col items-center">
+  <p class="mb-16 block text-2xl font-semibold text-black dark:text-white">
+    {{ locationData.name }}, {{ locationData.region }},
+    {{ locationData.country }}
+  </p>
+  <table class="table-auto mx-auto">
+    <tbody>
+      <tr>
+        <td>
+          <img
+            [src]="'../../../assets/' + dayOrNight + '/' + weatherData.icon"
+            alt=""
+            class="h-24 w-24 inline"
+          />
+        </td>
+        <td>
+          <p class="text-xl inline text-black dark:text-white">
+            {{ weatherData.text }}
+          </p>
+        </td>
+      </tr>
+      <tr>
+        <td class="text-center">
+          <img
+            src="../../../assets/thermometer.png"
+            class="h-16 w-16 inline custom-icons"
+          />
+        </td>
+        <td>
+          <p class="inline text-lg text-black dark:text-white">
+            {{ weatherData.tempC }}°C
+            <span
+              data-tooltip-target="tooltip-default"
+              data-tooltip-placement="right"
+              class="underline decoration-gray-300 dark:decoration-gray-600 decoration-3 underline-offset-8"
+              >({{ weatherData.feelsLikeC }}°C)</span
+            >
+          </p>
+          <div
+            id="tooltip-default"
+            role="tooltip"
+            class="absolute z-10 invisible inline-block px-3 py-2 text-sm font-medium text-white transition-opacity duration-300 bg-gray-500 rounded-lg shadow-sm opacity-0 tooltip dark:bg-gray-700"
+          >
+            Feels like {{ weatherData.feelsLikeC }}°C
+            <div class="tooltip-arrow" data-popper-arrow></div>
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <td class="text-center">
+          <img
+            src="../../../assets/clock.png"
+            class="h-16 w-16 inline custom-icons"
+          />
+        </td>
+        <td>
+          <p class="text-xl inline text-black dark:text-white">
+            {{ locationData.localTime | date : "fullTime" }} ({{
+              locationData.timezone
+            }})
+          </p>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</section>

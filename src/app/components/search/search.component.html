@@ -1,0 +1,50 @@
+<div class="mt-20 mb-32 flex flex-col justify-center items-center">
+  <form
+    class="w-1/3 flex flex-row"
+    [formGroup]="form"
+    (ngSubmit)="getCurrentWeather()"
+  >
+    <div class="inline-block grow w-full relative">
+      <input
+        type="text"
+        placeholder="UK/US postcode or any city name"
+        class="w-full h-full text-black dark:text-white bg-white dark:bg-gray-800 border border-slate-300 rounded-lg text-sm shadow-sm placeholder-slate-400 focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500"
+        formControlName="searchQuery"
+        onclick="event.stopImmediatePropagation"
+      />
+      <div
+        id="autocomplete-box"
+        class="w-full h-auto text-black dark:text-white bg-gray-50 dark:bg-gray-700 border-slate-300 rounded-lg shadow-sm absolute z-20"
+      >
+        <ul class="divide-y">
+          @for (city of citySuggestions; track $index) {
+          <li
+            class="pl-6 py-3 hover:bg-gray-100 dark:hover:bg-gray-950 hover:cursor-pointer"
+            (click)="optionSelected($event)"
+          >
+            {{ city }}
+          </li>
+          }
+        </ul>
+      </div>
+    </div>
+    <div class="basis-1/3 ml-5">
+      <input
+        type="submit"
+        value="Search"
+        class="w-full h-full text-white dark:text-gray-800 inline-block px-4 py-3 bg-gray-800 dark:bg-gray-100 hover:bg-gray-900 dark:hover:bg-gray-200 hover:cursor-pointer rounded-lg"
+      />
+    </div>
+  </form>
+</div>
+
+@if (displayWeatherResults) {
+<div>
+  <app-current-weather
+    [weatherData]="weatherData!"
+    [locationData]="locationData!"
+  ></app-current-weather>
+</div>
+} @else if (noResultsFound) {
+<app-error></app-error>
+}
